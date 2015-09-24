@@ -6,12 +6,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import java.util.ArrayList;
 
 
 public class MyEventsFragment extends Fragment{
-
     Location location;
+
+    protected ListView mListView;
+    protected ArrayAdapter<Event> mAdapter;
+    protected ArrayList<Event> myEvents;
 
     public MyEventsFragment() {
         // Required empty public constructor
@@ -20,13 +26,31 @@ public class MyEventsFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MainActivity main = (MainActivity) getActivity();
+        myEvents = main.getMyEvents();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_events, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_events, container, false);
+        mListView = (ListView) view.findViewById(R.id.listView);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view,savedInstanceState);
+
+        mListView = (ListView) view.findViewById(R.id.listView);
+
+        MainActivity main = (MainActivity) getActivity();
+        myEvents = main.getMyEvents();
+
+        mAdapter = new ArrayAdapter<Event>(getActivity(), android.R.layout.simple_list_item_1, myEvents);
+        mListView.setAdapter(mAdapter);
+
     }
 
 }

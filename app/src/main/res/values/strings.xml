@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ScavengerTabbed</string>
+    <string name="app_name">Scavenger</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -16,7 +16,7 @@
     <string name="longitude">Longitude</string>
     <string name="description">Description</string>
     <string name="add_event">Add Event</string>
-    <string name="title_activity_new_event">NewEventActivity</string>
+    <string name="title_activity_new_event">New Event</string>
     <string name="latitude_new">Latitude:</string>
     <string name="longitude_new">Longitude:</string>
 </resources>

@@ -40,6 +40,11 @@ public class AllEventsFragment extends Fragment{
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view,savedInstanceState);
 
+        mListView = (ListView) view.findViewById(R.id.listView);
+
+        MainActivity main = (MainActivity) getActivity();
+        events = main.getEvents();
+
         mAdapter = new ArrayAdapter<Event>(getActivity(), android.R.layout.simple_list_item_1, events);
         mListView.setAdapter(mAdapter);
 

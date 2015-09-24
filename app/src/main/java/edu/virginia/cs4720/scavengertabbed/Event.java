@@ -38,7 +38,7 @@ public class Event {
 
     @Override
     public String toString() {
-        return this.name + "\n" + this.description + "\n" + this.date + " " + this.date + "\n" + this.location.getLongitude() + " " + this.location.getLatitude();
+        return this.name + "\n" + this.description + "\n" + this.date + " " + this.time + "\n" + this.location.getLongitude() + " " + this.location.getLatitude();
     }
 
     public String getDescription() {

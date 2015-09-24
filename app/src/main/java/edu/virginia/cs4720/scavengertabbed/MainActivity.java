@@ -1,6 +1,7 @@
 package edu.virginia.cs4720.scavengertabbed;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -15,8 +16,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     EditText latitudeEditText;
     EditText longitudeEditText;
     DatePickerDialog.OnDateSetListener date;
+    CheckBox locationCheckBox;
 
     public Location getCurrent() {
         return current;
@@ -59,8 +63,18 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<Event> events;
 
+    ArrayList<Event> myEvents;
+
     LocationManager locationManager;
     LocationListener locationListener;
+
+    public ArrayList<Event> getMyEvents() {
+        return myEvents;
+    }
+
+    public void setMyEvents(ArrayList<Event> myEvents) {
+        this.myEvents = myEvents;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         // Register the listener with the Location Manager to receive location updates
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
         current = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
         latitude = current.getLatitude();
         longitude = current.getLongitude();
 
@@ -108,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -120,9 +134,17 @@ public class MainActivity extends AppCompatActivity {
         events = new ArrayList<>();
         Event one = new Event("Info Session", "Capital One Info Session w/ bagels", "12:00 PM", "09/14/15", current);
         Event two = new Event("Info Session", "Capital One Info Session w/ bagels", "12:00 PM", "09/14/15", current);
+        Event three = new Event("Tech Talk", "Microsoft Tech Talk w/ pizza", "7:00 PM", "09/17/15", current);
+        Event four = new Event("Meet and Greet", "Free bags and pizza", "6:00 PM", "09/20/15", current);
 
         events.add(one);
         events.add(two);
+        events.add(three);
+        events.add(four);
+
+        myEvents = new ArrayList<>();
+        myEvents.add(three);
+        myEvents.add(four);
 
     }
 
@@ -181,10 +203,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickCurrentLocation(View view) {
+        locationCheckBox = (CheckBox) findViewById(R.id.locationCheckBox);
         latitudeEditText = (EditText) findViewById(R.id.latitudeEditText);
-        latitudeEditText.setText(latitude.toString());
         longitudeEditText = (EditText) findViewById(R.id.longitudeEditText);
-        longitudeEditText.setText(longitude.toString());
+        if (locationCheckBox.isChecked()) {
+            latitudeEditText.setText(latitude.toString());
+            longitudeEditText.setText(longitude.toString());
+            latitudeEditText.setEnabled(false);
+            longitudeEditText.setEnabled(false);
+        }
+        else {
+            latitudeEditText.setText("");
+            longitudeEditText.setText("");
+            latitudeEditText.setEnabled(true);
+            longitudeEditText.setEnabled(true);
+
+        }
+
     }
 
     public void onClickDate(View view) {
@@ -192,11 +227,24 @@ public class MainActivity extends AppCompatActivity {
                 myCalendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
+    public void onClickTime(View view) {
+        final EditText timeEditText = (EditText) findViewById(R.id.timeEditText);
+        Calendar mcurrentTime = Calendar.getInstance();
+        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+        int minute = mcurrentTime.get(Calendar.MINUTE);
+        TimePickerDialog mTimePicker;
+        mTimePicker = new TimePickerDialog(MainActivity.this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                timeEditText.setText( selectedHour + ":" + selectedMinute);
+            }
+        }, hour, minute, true);//Yes 24 hour time
+        mTimePicker.setTitle("Select Time");
+        mTimePicker.show();
+    }
+
     private void updateLabel() {
-
-
-
-        String myFormat = "MM/dd/yy"; //In which you need put here
+        String myFormat = "MM/dd/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         dateEditText = (EditText) findViewById(R.id.dateEditText);
         dateEditText.setText(sdf.format(myCalendar.getTime()));

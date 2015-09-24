@@ -80,7 +80,7 @@ tools:context="edu.virginia.cs4720.scavengertabbed.AddEventFragment">
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/locationCheckbox"
-                android:id="@+id/LocationCheckBox"
+                android:id="@+id/locationCheckBox"
                 android:layout_below="@+id/timeEditText"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
@@ -93,7 +93,7 @@ tools:context="edu.virginia.cs4720.scavengertabbed.AddEventFragment">
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/latitude"
                 android:id="@+id/textView5"
-                android:layout_below="@+id/LocationCheckBox"
+                android:layout_below="@+id/locationCheckBox"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
