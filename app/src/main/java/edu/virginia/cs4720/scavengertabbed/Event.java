@@ -2,29 +2,44 @@ package edu.virginia.cs4720.scavengertabbed;
 
 import android.location.Location;
 
-import java.util.ArrayList;
+import com.orm.SugarRecord;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
  * Created by danielfmace on 9/16/15.
  */
-public class Event {
+public class Event extends SugarRecord<Event> {
 
     private String name;
     private String description;
-    private String time;
-    private String date;
-    private Location location;
-
-    private ArrayList<Comment> comments;
+    private Double latitude;
+    private Double longitude;
+    private Boolean mine;
+    private Date date;
 
     public Event(String name, String description, String time, String date, Location location) {
         this.name = name;
         this.description = description;
-        this.time = time;
-        this.date = date;
-        this.location = location;
-        this.comments = new ArrayList<Comment>();
+        String fromDate = date + " " + time;
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+        java.util.Date dtt = null;
+        try {
+            dtt = df.parse(fromDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        this.latitude = location.getLatitude();
+        this.longitude = location.getLongitude();
+        this.date = dtt;
+        this.mine = false;
+    }
+
+    public Event() {
     }
 
 
@@ -36,9 +51,18 @@ public class Event {
         this.name = name;
     }
 
+    public Boolean getMine() {
+        return mine;
+    }
+
+    public void setMine(Boolean mine) {
+        this.mine = mine;
+    }
+
+
     @Override
     public String toString() {
-        return this.name + "\n" + this.description + "\n" + this.date + " " + this.time + "\n" + this.location.getLongitude() + " " + this.location.getLatitude();
+        return this.name + "\n" + this.description + "\n" + this.date + "\n" + this.getLongitude() + " " + this.getLatitude();
     }
 
     public String getDescription() {
@@ -49,36 +73,21 @@ public class Event {
         this.description = description;
     }
 
-    public String getTime() {
-        return time;
+
+    public Double getLatitude() {
+        return latitude;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 
-    public String getDate() {
-        return date;
+    public Double getLongitude() {
+        return longitude;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public ArrayList<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(ArrayList<Comment> comments) {
-        this.comments = comments;
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
 }

@@ -1,10 +1,12 @@
 package edu.virginia.cs4720.scavengertabbed;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 public class NewEventActivity extends AppCompatActivity {
@@ -15,6 +17,7 @@ public class NewEventActivity extends AppCompatActivity {
     private TextView timeTextView;
     private TextView longitudeTextView;
     private TextView latitudeTextView;
+    private Event event;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,19 @@ public class NewEventActivity extends AppCompatActivity {
         timeTextView = (TextView) findViewById(R.id.timeTextView);
         longitudeTextView = (TextView) findViewById(R.id.longitudeTextView);
         latitudeTextView = (TextView) findViewById(R.id.latitudeTextView);
+
+        Double latitude = Double.parseDouble((String) b.get("latitude"));
+        Double longitude = Double.parseDouble((String) b.get("longitude"));
+        Location location = new Location("");
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
+
+        String name = (String) b.get("title");
+        String description = (String) b.get("description");
+        String time = (String) b.get("time");
+        String date = (String) b.get("date");
+
+        event = new Event(name, description, time, date, location);
 
         if (b.get("title") != null) {
             nameTextView.setText("Title: " + b.get("title"));
@@ -72,5 +88,11 @@ public class NewEventActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onClickSave(View view) {
+        event.save();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

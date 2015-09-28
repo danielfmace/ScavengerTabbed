@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
@@ -131,20 +131,25 @@ public class MainActivity extends AppCompatActivity {
 
         };
 
-        events = new ArrayList<>();
-        Event one = new Event("Info Session", "Capital One Info Session w/ bagels", "12:00 PM", "09/14/15", current);
-        Event two = new Event("Info Session", "Capital One Info Session w/ bagels", "12:00 PM", "09/14/15", current);
-        Event three = new Event("Tech Talk", "Microsoft Tech Talk w/ pizza", "7:00 PM", "09/17/15", current);
-        Event four = new Event("Meet and Greet", "Free bags and pizza", "6:00 PM", "09/20/15", current);
+        events = new ArrayList<>(Event.findWithQuery(Event.class, "SELECT * from Event"));
 
-        events.add(one);
-        events.add(two);
-        events.add(three);
-        events.add(four);
+        if (events.isEmpty()) {
+            Event one = new Event("Info Session", "Capital One Info Session w/ bagels", "12:00", "09/14/2015", current);
+            one.setMine(true);
+            Event two = new Event("Info Session", "Capital One Info Session w/ bagels", "12:00", "09/14/2015", current);
+            Event three = new Event("Tech Talk", "Microsoft Tech Talk w/ pizza", "7:00", "09/17/2015", current);
+            Event four = new Event("Meet and Greet", "Free bags and pizza", "6:00", "09/20/2015", current);
 
-        myEvents = new ArrayList<>();
-        myEvents.add(three);
-        myEvents.add(four);
+            one.save();
+            two.save();
+            three.save();
+            four.save();
+
+            events = new ArrayList<>(Event.findWithQuery(Event.class, "SELECT * from Event"));
+        }
+
+        myEvents = new ArrayList<>(Event.findWithQuery(Event.class, "SELECT * from Event WHERE mine = ?", "1"));
+
 
     }
 
@@ -198,8 +203,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void doServiceWork(Location location) {
         current = location;
-        //String currentDateTimeString = DateFormat.format("MM/dd/yy h:mm:ssaa", new Date()).toString();
-        //Toast.makeText(this, "Location: " + location.toString() + " / " + currentDateTimeString, Toast.LENGTH_LONG).show();
     }
 
     public void onClickCurrentLocation(View view) {
@@ -223,8 +226,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickDate(View view) {
-        new DatePickerDialog(MainActivity.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+        DatePickerDialog datePicker = new DatePickerDialog(MainActivity.this, R.style.DialogTheme, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH));
+        datePicker.show();
     }
 
     public void onClickTime(View view) {
@@ -233,10 +237,14 @@ public class MainActivity extends AppCompatActivity {
         int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
         int minute = mcurrentTime.get(Calendar.MINUTE);
         TimePickerDialog mTimePicker;
-        mTimePicker = new TimePickerDialog(MainActivity.this, new TimePickerDialog.OnTimeSetListener() {
+        mTimePicker = new TimePickerDialog(MainActivity.this, R.style.DialogTheme, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                timeEditText.setText( selectedHour + ":" + selectedMinute);
+                String helper = ":";
+                if (selectedMinute < 10) {
+                    helper = helper + "0";
+                }
+                timeEditText.setText( selectedHour + helper + selectedMinute);
             }
         }, hour, minute, true);//Yes 24 hour time
         mTimePicker.setTitle("Select Time");
@@ -244,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateLabel() {
-        String myFormat = "MM/dd/yy";
+        String myFormat = "MM/dd/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         dateEditText = (EditText) findViewById(R.id.dateEditText);
         dateEditText.setText(sdf.format(myCalendar.getTime()));
