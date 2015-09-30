@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 
@@ -80,6 +81,11 @@ public class DetailsFragment extends Fragment {
         time.setText("Date and Time: " + event.getDate());
         latitude.setText("Latitude: " + event.getLatitude());
         longitude.setText("Longitude: " + event.getLongitude());
+
+        CheckBox isMine = (CheckBox) view.findViewById(R.id.mineCheckBox);
+        if (event.getMine()) {
+            isMine.setChecked(true);
+        }
 
         return view;
 

@@ -12,11 +12,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
 
 public class EventDetailActivity extends AppCompatActivity {
@@ -78,6 +79,8 @@ public class EventDetailActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         comments = new ArrayList<>(Comment.findWithQuery(Comment.class, "SELECT * from COMMENT WHERE event_id = ?", eventId.toString()));
+
+
     }
 
     @Override
@@ -142,6 +145,7 @@ public class EventDetailActivity extends AppCompatActivity {
     public void addComment(View view) {
         EditText commentText = (EditText) findViewById(R.id.commentEditText);
         EditText authorText = (EditText) findViewById(R.id.authorEditText);
+
         Comment comment = new Comment();
         comment.setDescription(commentText.getText().toString());
         comment.setAuthor(authorText.getText().toString());
@@ -155,5 +159,17 @@ public class EventDetailActivity extends AppCompatActivity {
 
 
         startActivity(intent);
+    }
+
+    public void onClickCheckbox(View view) {
+        CheckBox isMine = (CheckBox) findViewById(R.id.mineCheckBox);
+        if (isMine.isChecked()) {
+            event.setMine(true);
+            event.save();
+        }
+        else {
+            event.setMine(false);
+            event.save();
+        }
     }
 }

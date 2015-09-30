@@ -45,7 +45,7 @@ public class NewEventActivity extends AppCompatActivity {
         String time = (String) b.get("time");
         String date = (String) b.get("date");
 
-        event = new Event(name, description, time, date, location);
+        event = new Event(name, description, time, date, location, true);
 
         if (b.get("title") != null) {
             nameTextView.setText("Title: " + b.get("title"));

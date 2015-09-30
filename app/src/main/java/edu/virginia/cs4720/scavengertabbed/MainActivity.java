@@ -134,11 +134,11 @@ public class MainActivity extends AppCompatActivity {
         events = new ArrayList<>(Event.findWithQuery(Event.class, "SELECT * from Event"));
 
         if (events.isEmpty()) {
-            Event one = new Event("Info Session", "Capital One Info Session w/ bagels", "12:00", "09/14/2015", current);
+            Event one = new Event("Info Session", "Capital One Info Session w/ bagels", "12:00", "09/14/2015", current, false);
             one.setMine(true);
-            Event two = new Event("Info Session", "Capital One Info Session w/ bagels", "12:00", "09/14/2015", current);
-            Event three = new Event("Tech Talk", "Microsoft Tech Talk w/ pizza", "7:00", "09/17/2015", current);
-            Event four = new Event("Meet and Greet", "Free bags and pizza", "6:00", "09/20/2015", current);
+            Event two = new Event("Info Session", "Capital One Info Session w/ bagels", "12:00", "09/14/2015", current, false);
+            Event three = new Event("Tech Talk", "Microsoft Tech Talk w/ pizza", "7:00", "09/17/2015", current, false);
+            Event four = new Event("Meet and Greet", "Free bags and pizza", "6:00", "09/20/2015", current, false);
 
             one.save();
             two.save();
@@ -148,7 +148,13 @@ public class MainActivity extends AppCompatActivity {
             events = new ArrayList<>(Event.findWithQuery(Event.class, "SELECT * from Event"));
         }
 
-        myEvents = new ArrayList<>(Event.findWithQuery(Event.class, "SELECT * from Event WHERE mine = ?", "1"));
+        myEvents = new ArrayList<Event>();
+
+        for (Event e : events) {
+            if (e.getMine()) {
+                myEvents.add(e);
+            }
+        }
 
 
     }
