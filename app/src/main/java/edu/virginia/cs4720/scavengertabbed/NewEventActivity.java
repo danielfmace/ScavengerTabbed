@@ -28,7 +28,7 @@ public class NewEventActivity extends AppCompatActivity {
         Bundle b = in.getExtras();
 
         nameTextView = (TextView) findViewById(R.id.nameTextView);
-        descriptionTextView = (TextView) findViewById(R.id.descriptionTextView);
+        descriptionTextView = (TextView) findViewById(R.id.commentTextView);
         dateTextView = (TextView) findViewById(R.id.dateTextView);
         timeTextView = (TextView) findViewById(R.id.timeTextView);
         longitudeTextView = (TextView) findViewById(R.id.longitudeTextView);

@@ -20,6 +20,7 @@ public class Event extends SugarRecord<Event> {
     private Double latitude;
     private Double longitude;
     private Boolean mine;
+
     private Date date;
 
     public Event(String name, String description, String time, String date, Location location) {
@@ -90,5 +91,12 @@ public class Event extends SugarRecord<Event> {
         this.longitude = longitude;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 }
 

@@ -2,7 +2,6 @@ package edu.virginia.cs4720.scavengertabbed;
 
 import com.orm.SugarRecord;
 
-import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -11,18 +10,54 @@ import java.util.Date;
 public class Comment extends SugarRecord<Comment> {
 
     private Date date;
-    private Time time;
     private String description;
     private String author;
-    private Event event;
+
+    public long getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(long eventId) {
+        this.eventId = eventId;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    private long eventId;
 
     public Comment() {}
 
-    public Comment(Date date, Time time, String description, String author, Event event) {
+    public Comment(Date date, String description, String author, long eventId) {
         this.date = date;
-        this.time = time;
         this.description = description;
         this.author = author;
-        this.event = event;
+        this.eventId = eventId;
+    }
+
+    @Override
+    public String toString() {
+        return this.description + "\n" + "Author: " + this.author + "\nDate: " + this.date;
     }
 }

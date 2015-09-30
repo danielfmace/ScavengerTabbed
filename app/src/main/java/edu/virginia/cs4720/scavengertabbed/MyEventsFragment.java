@@ -1,11 +1,13 @@
 package edu.virginia.cs4720.scavengertabbed;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -50,6 +52,16 @@ public class MyEventsFragment extends Fragment{
 
         mAdapter = new ArrayAdapter<Event>(getActivity(), android.R.layout.simple_list_item_1, myEvents);
         mListView.setAdapter(mAdapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
+                Event e = (Event) adapter.getItemAtPosition(position);
+                long id = e.getId();
+                Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
+            }
+        });
 
     }
 
