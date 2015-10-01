@@ -21,6 +21,7 @@
     <string name="longitude_new">Longitude:</string>
     <string name="save_event">Save Event</string>
     <string name="title_activity_event_detail">EventDetailActivity</string>
+    <string name="imageUpload">Upload Image</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
