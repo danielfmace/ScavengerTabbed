@@ -66,6 +66,16 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/imageUploadedView"
+        android:layout_below="@+id/longitudeTextView"
+        android:padding="1dp"
+        android:background="#b2d5dad7"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"/>
+
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

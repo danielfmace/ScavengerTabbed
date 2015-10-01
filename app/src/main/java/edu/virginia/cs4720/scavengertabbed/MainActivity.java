@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.Image;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
@@ -25,6 +26,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TimePicker;
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     Double longitude;
 
     ImageView imgView;
+    Bitmap bitmap;
 
     Calendar myCalendar;
     EditText dateEditText;
@@ -180,8 +183,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-        imgView.setImageBitmap(bitmap);
+        bitmap = (Bitmap) data.getExtras().get("data");
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -304,6 +306,11 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("description", description.getText().toString());
         intent.putExtra("latitude", latitude.getText().toString());
         intent.putExtra("longitude", longitude.getText().toString());
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] b = byteArrayOutputStream.toByteArray();
+        intent.putExtra("image", b);
 
         startActivity(intent);
     }
