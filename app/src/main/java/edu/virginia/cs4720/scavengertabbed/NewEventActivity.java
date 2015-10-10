@@ -1,15 +1,12 @@
 package edu.virginia.cs4720.scavengertabbed;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class NewEventActivity extends AppCompatActivity {
@@ -21,7 +18,6 @@ public class NewEventActivity extends AppCompatActivity {
     private TextView longitudeTextView;
     private TextView latitudeTextView;
     private Event event;
-    private ImageView imgView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +33,6 @@ public class NewEventActivity extends AppCompatActivity {
         timeTextView = (TextView) findViewById(R.id.timeTextView);
         longitudeTextView = (TextView) findViewById(R.id.longitudeTextView);
         latitudeTextView = (TextView) findViewById(R.id.latitudeTextView);
-        imgView = (ImageView) findViewById(R.id.imageUploadedView);
 
 
         Double latitude = Double.parseDouble((String) b.get("latitude"));
@@ -51,9 +46,6 @@ public class NewEventActivity extends AppCompatActivity {
         String time = (String) b.get("time");
         String date = (String) b.get("date");
 
-        byte[] by= b.getByteArray("image");
-        Bitmap bitmap = BitmapFactory.decodeByteArray(by, 0, by.length);
-        imgView.setImageBitmap(bitmap);
 
         event = new Event(name, description, time, date, location, true);
 

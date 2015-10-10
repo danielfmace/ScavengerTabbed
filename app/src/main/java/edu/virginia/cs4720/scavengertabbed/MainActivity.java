@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.media.Image;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
@@ -140,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
         };
 
-        imgView = (ImageView) findViewById(R.id.imageUploadView);
+        /*imgView = (ImageView) findViewById(R.id.imageUploadView);
 
         Button imageButton = (Button) findViewById(R.id.uploadImageButton);
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -149,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent imageIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(imageIntent, 0);
             }
-        });
+        });*/
 
 
         events = new ArrayList<>(Event.findWithQuery(Event.class, "SELECT * from Event"));
@@ -180,11 +179,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         bitmap = (Bitmap) data.getExtras().get("data");
-    }
+    }*/
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -307,10 +306,10 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("latitude", latitude.getText().toString());
         intent.putExtra("longitude", longitude.getText().toString());
 
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        /*ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] b = byteArrayOutputStream.toByteArray();
-        intent.putExtra("image", b);
+        intent.putExtra("image", b);*/
 
         startActivity(intent);
     }

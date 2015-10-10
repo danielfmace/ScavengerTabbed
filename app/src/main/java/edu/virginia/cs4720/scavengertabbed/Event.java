@@ -1,7 +1,6 @@
 package edu.virginia.cs4720.scavengertabbed;
 
 import android.location.Location;
-import android.media.Image;
 
 import com.orm.SugarRecord;
 
@@ -21,7 +20,6 @@ public class Event extends SugarRecord<Event> {
     private Double latitude;
     private Double longitude;
     private Boolean mine;
-    private Image img;
 
     private Date date;
 
