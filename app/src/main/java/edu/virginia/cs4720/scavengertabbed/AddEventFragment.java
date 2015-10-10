@@ -48,18 +48,25 @@ public class AddEventFragment extends Fragment {
 
         imgView = (ImageView) v.findViewById(R.id.imageUploadView);
 
-        Button imageButton = (Button) v.findViewById(R.id.uploadImageButton);
-        imageButton.setOnClickListener(new View.OnClickListener() {
+        Button photosButton = (Button) v.findViewById(R.id.choosePictureButton);
+        photosButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*//for the camera
-                Intent imageIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(imageIntent, 0);*/
-
                 //for the photos on the device
                 Intent photoSelect = new Intent(Intent.ACTION_PICK);
                 photoSelect.setType("image/*");
                 startActivityForResult(photoSelect, 1);
+            }
+        });
+
+        Button cameraButton = (Button) v.findViewById(R.id.takePictureButton);
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //for the camera
+                Intent imageIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(imageIntent, 0);
+
             }
         });
 
@@ -69,11 +76,16 @@ public class AddEventFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /*//old code
-        bitmap = (Bitmap) data.getExtras().get("data");
-        imgView.setImageBitmap(bitmap);*/
-        Uri selectedImg = data.getData();
-        imgView.setImageURI(selectedImg);
+        if(requestCode == 0) {
+            //user choose to take picture
+            bitmap = (Bitmap) data.getExtras().get("data");
+            imgView.setImageBitmap(bitmap);
+        }
+        if(requestCode == 1) {
+            //user choose to select photo
+            Uri selectedImg = data.getData();
+            imgView.setImageURI(selectedImg);
+        }
 
     }
 }

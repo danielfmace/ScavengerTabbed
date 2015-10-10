@@ -172,20 +172,32 @@ tools:context="edu.virginia.cs4720.scavengertabbed.AddEventFragment">
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/imageUpload"
-                android:id="@+id/uploadImageButton"
+                android:text="@string/camera"
+                android:id="@+id/takePictureButton"
                 android:layout_below="@+id/imageUploadTextView"
-                android:layout_centerHorizontal="true"
-                android:paddingRight="28dp"
-                android:paddingLeft="28dp"
-                android:layout_margin="10dp"
+                android:layout_alignParentLeft="true"
+                android:paddingRight="40dp"
+                android:paddingLeft="40dp"
+                android:layout_marginLeft="20dp"
+                android:onClick="uploadNewImage" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/photos"
+                android:id="@+id/choosePictureButton"
+                android:layout_below="@+id/imageUploadTextView"
+                android:layout_alignParentRight="true"
+                android:paddingRight="40dp"
+                android:paddingLeft="40dp"
+                android:layout_marginRight="20dp"
                 android:onClick="uploadNewImage" />
 
             <ImageView
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:id="@+id/imageUploadView"
-                android:layout_below="@+id/uploadImageButton"
+                android:layout_below="@+id/takePictureButton"
                 android:padding="1dp"
                 android:background="#b2d5dad7"
                 android:layout_centerHorizontal="true"
