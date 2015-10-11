@@ -5,9 +5,12 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
@@ -24,6 +27,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
@@ -40,9 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
     Double latitude;
     Double longitude;
-
-    ImageView imgView;
-    Bitmap bitmap;
 
     Calendar myCalendar;
     EditText dateEditText;
@@ -139,26 +140,18 @@ public class MainActivity extends AppCompatActivity {
 
         };
 
-        /*imgView = (ImageView) findViewById(R.id.imageUploadView);
-
-        Button imageButton = (Button) findViewById(R.id.uploadImageButton);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent imageIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(imageIntent, 0);
-            }
-        });*/
-
 
         events = new ArrayList<>(Event.findWithQuery(Event.class, "SELECT * from Event"));
 
         if (events.isEmpty()) {
-            Event one = new Event("Info Session", "Capital One Info Session w/ bagels", "12:00", "09/14/2015", current, false);
+
+            String blankImagePath = "blankImage";
+
+            Event one = new Event("Info Session", "Capital One Info Session w/ bagels", "12:00", "09/14/2015", current, blankImagePath, false);
             one.setMine(true);
-            Event two = new Event("Info Session", "Capital One Info Session w/ bagels", "12:00", "09/14/2015", current, false);
-            Event three = new Event("Tech Talk", "Microsoft Tech Talk w/ pizza", "7:00", "09/17/2015", current, false);
-            Event four = new Event("Meet and Greet", "Free bags and pizza", "6:00", "09/20/2015", current, false);
+            Event two = new Event("Info Session", "Capital One Info Session w/ bagels", "12:00", "09/14/2015", current, blankImagePath, false);
+            Event three = new Event("Tech Talk", "Microsoft Tech Talk w/ pizza", "7:00", "09/17/2015", current, blankImagePath, false);
+            Event four = new Event("Meet and Greet", "Free bags and pizza", "6:00", "09/20/2015", current, blankImagePath, false);
 
             one.save();
             two.save();
@@ -178,12 +171,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        bitmap = (Bitmap) data.getExtras().get("data");
-    }*/
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -297,6 +284,7 @@ public class MainActivity extends AppCompatActivity {
         EditText latitude = (EditText) findViewById(R.id.latitudeEditText);
         EditText longitude = (EditText) findViewById(R.id.longitudeEditText);
         EditText description = (EditText) findViewById(R.id.descriptionEditText);
+        ImageView imgView = (ImageView) findViewById(R.id.imageUploadView);
 
         Intent intent = new Intent(this, NewEventActivity.class);
         intent.putExtra("title", title.getText().toString());
@@ -306,11 +294,26 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("latitude", latitude.getText().toString());
         intent.putExtra("longitude", longitude.getText().toString());
 
-        /*ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] b = byteArrayOutputStream.toByteArray();
-        intent.putExtra("image", b);*/
+
+
+        imgView.buildDrawingCache();
+        if(imgView.getDrawingCache() != null) {
+            Bitmap img = imgView.getDrawingCache();
+            Bundle extras = intent.getExtras();
+            extras.putParcelable("imageBitmap", img);
+            intent.putExtras(extras);
+        }
+        else {
+            imgView.setImageResource(R.drawable.blankimage);
+            Bitmap img = imgView.getDrawingCache();
+            Bundle extras = intent.getExtras();
+            extras.putParcelable("imageBitmap", img);
+            intent.putExtras(extras);
+        }
+
+
 
         startActivity(intent);
     }
+
 }

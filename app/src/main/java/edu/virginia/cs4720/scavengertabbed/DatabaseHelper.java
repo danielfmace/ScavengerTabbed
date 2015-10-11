@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.sql.Blob;
+
 /**
  * Created by danielfmace on 9/24/15.
  */
@@ -33,6 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_NAME = "name";
     private static final String KEY_LATITUDE = "latitude";
     private static final String KEY_LONGITUDE = "longitude";
+    private static final String KEY_IMAGEPATH = "imagePath";
     private static final String KEY_MINE = "mine";
 
     // Comments Table = column names
@@ -47,7 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_EVENT = "CREATE TABLE"
             + TABLE_EVENT + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
             + KEY_NAME + " TEXT," + KEY_DESCRIPTION + " TEXT," + KEY_DATE_TIME + " DATETIME,"
-            + KEY_LATITUDE + " REAL," + KEY_LONGITUDE + " REAL,"
+            + KEY_LATITUDE + " REAL," + KEY_LONGITUDE + " REAL," + KEY_IMAGEPATH + " TEXT,"
             + KEY_MINE + " BOOLEAN" + ")";
 
     // Comment table create statement
@@ -91,6 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // values.put(KEY_DATE_TIME, event.getDate());
         values.put(KEY_LATITUDE, event.getLatitude());
         values.put(KEY_LONGITUDE, event.getLongitude());
+        values.put(KEY_IMAGEPATH, event.getImagePath());
         values.put(KEY_MINE, event.getMine());
 
         long event_id = db.insert(TABLE_EVENT, null, values);

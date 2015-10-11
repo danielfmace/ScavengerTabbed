@@ -1,9 +1,8 @@
 package edu.virginia.cs4720.scavengertabbed;
 
+
 import android.location.Location;
-
 import com.orm.SugarRecord;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,9 +20,10 @@ public class Event extends SugarRecord<Event> {
     private Double longitude;
     private Boolean mine;
 
+    private String imagePath;
     private Date date;
 
-    public Event(String name, String description, String time, String date, Location location, Boolean mine) {
+/*    public Event(String name, String description, String time, String date, Location location, Boolean mine) {
         this.name = name;
         this.description = description;
         String fromDate = date + " " + time;
@@ -37,6 +37,24 @@ public class Event extends SugarRecord<Event> {
         this.latitude = location.getLatitude();
         this.longitude = location.getLongitude();
         this.date = dtt;
+        this.mine = mine;
+    }*/
+
+    public Event(String name, String description, String time, String date, Location location, String imagePath, Boolean mine) {
+        this.name = name;
+        this.description = description;
+        String fromDate = date + " " + time;
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+        java.util.Date dtt = null;
+        try {
+            dtt = df.parse(fromDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        this.latitude = location.getLatitude();
+        this.longitude = location.getLongitude();
+        this.date = dtt;
+        this.imagePath = imagePath;
         this.mine = mine;
     }
 
@@ -98,5 +116,8 @@ public class Event extends SugarRecord<Event> {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    public String getImagePath() { return imagePath; }
+    public void setImagePath(String imagePath) { this.imagePath = imagePath; }
 }
 

@@ -44,14 +44,14 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/longitude_new"
-        android:id="@+id/longitudeTextView"
-        android:layout_below="@+id/latitudeTextView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:text="@string/longitude_new"
+    android:id="@+id/longitudeTextView"
+    android:layout_below="@+id/latitudeTextView"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -63,5 +63,15 @@
         android:layout_alignParentStart="true"
         android:checked="false"
         android:onClick="onClickCheckbox" />
+
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/imageViewFD"
+        android:layout_below="@+id/mineCheckBox"
+        android:padding="1dp"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"/>
 
 </RelativeLayout>

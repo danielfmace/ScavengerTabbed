@@ -1,12 +1,18 @@
 package edu.virginia.cs4720.scavengertabbed;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.File;
 
 
 public class DetailsFragment extends Fragment {
@@ -25,6 +31,8 @@ public class DetailsFragment extends Fragment {
     private TextView longitude;
     private TextView date;
     private TextView time;
+    private ImageView imageView;
+    private String imagePath;
 
     private Event event;
 
@@ -75,12 +83,28 @@ public class DetailsFragment extends Fragment {
         latitude = (TextView) view.findViewById(R.id.latitudeTextView);
         time = (TextView) view.findViewById(R.id.timeTextView);
         longitude = (TextView) view.findViewById(R.id.longitudeTextView);
+        imageView = (ImageView) view.findViewById(R.id.imageViewFD);
 
         name.setText("Name: " + event.getName());
         description.setText("Description: " + event.getDescription());
         time.setText("Date and Time: " + event.getDate());
         latitude.setText("Latitude: " + event.getLatitude());
         longitude.setText("Longitude: " + event.getLongitude());
+
+        imagePath = event.getImagePath();
+
+        if(imagePath.equals("blankImage")) {
+            //imageView.setImageResource(R.drawable.blankimage);
+        }
+        else {
+            File imageFile = new File(imagePath);
+            if (imageFile.isFile()) {
+                Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+                imageView.setImageBitmap(bitmap);
+            }
+        }
+
+
 
         CheckBox isMine = (CheckBox) view.findViewById(R.id.mineCheckBox);
         if (event.getMine()) {
