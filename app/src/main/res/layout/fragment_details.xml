@@ -9,6 +9,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Title: "
         android:id="@+id/nameTextView"
+        android:padding="5dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -20,6 +21,7 @@
         android:text="Description: "
         android:id="@+id/commentTextView"
         android:layout_below="@+id/nameTextView"
+        android:padding="5dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -29,6 +31,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Time: "
         android:id="@+id/timeTextView"
+        android:padding="5dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/commentTextView" />
@@ -40,18 +43,20 @@
         android:text="@string/latitude_new"
         android:id="@+id/latitudeTextView"
         android:layout_below="@+id/timeTextView"
+        android:padding="5dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textAppearance="?android:attr/textAppearanceLarge"
-    android:text="@string/longitude_new"
-    android:id="@+id/longitudeTextView"
-    android:layout_below="@+id/latitudeTextView"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/longitude_new"
+        android:id="@+id/longitudeTextView"
+        android:layout_below="@+id/latitudeTextView"
+            android:padding="5dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -59,6 +64,7 @@
         android:text="Added to My Events"
         android:id="@+id/mineCheckBox"
         android:layout_below="@+id/longitudeTextView"
+        android:padding="5dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:checked="false"
@@ -70,7 +76,7 @@
         android:layout_height="200dp"
         android:id="@+id/imageViewFD"
         android:layout_below="@+id/mineCheckBox"
-        android:padding="1dp"
+        android:padding="5dp"
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"/>
 
