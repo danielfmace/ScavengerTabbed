@@ -285,7 +285,36 @@ public class MainActivity extends AppCompatActivity {
         EditText longitude = (EditText) findViewById(R.id.longitudeEditText);
         EditText description = (EditText) findViewById(R.id.descriptionEditText);
         ImageView imgView = (ImageView) findViewById(R.id.imageUploadView);
-
+        String sTitle = title.getText().toString();
+        String sDate = date.getText().toString();
+        String sTime = time.getText().toString();
+        String sLat = latitude.getText().toString();
+        String sLon = longitude.getText().toString();
+        String sDesc = description.getText().toString();
+        if (sTitle.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Please enter a title", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (sDate.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Please enter a date", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (sTime.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Please enter a time", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (sLat.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Please enter a latitude", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (sLon.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Please enter a longitude", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (sDesc.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Please enter a description", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Intent intent = new Intent(this, NewEventActivity.class);
         intent.putExtra("title", title.getText().toString());
         intent.putExtra("date", date.getText().toString());
@@ -293,7 +322,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("description", description.getText().toString());
         intent.putExtra("latitude", latitude.getText().toString());
         intent.putExtra("longitude", longitude.getText().toString());
-
 
 
         imgView.buildDrawingCache();
